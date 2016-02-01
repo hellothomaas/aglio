@@ -1,0 +1,605 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>PCI Proxy</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"><style>@import url('https://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200');.hljs-comment,.hljs-title{color:#8e908c}.hljs-variable,.hljs-attribute,.hljs-tag,.hljs-regexp,.ruby .hljs-constant,.xml .hljs-tag .hljs-title,.xml .hljs-pi,.xml .hljs-doctype,.html .hljs-doctype,.css .hljs-id,.css .hljs-class,.css .hljs-pseudo{color:#c82829}.hljs-number,.hljs-preprocessor,.hljs-pragma,.hljs-built_in,.hljs-literal,.hljs-params,.hljs-constant{color:#f5871f}.ruby .hljs-class .hljs-title,.css .hljs-rules .hljs-attribute{color:#eab700}.hljs-string,.hljs-value,.hljs-inheritance,.hljs-header,.ruby .hljs-symbol,.xml .hljs-cdata{color:#718c00}.css .hljs-hexcolor{color:#3e999f}.hljs-function,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword,.perl .hljs-sub,.javascript .hljs-title,.coffeescript .hljs-title{color:#4271ae}.hljs-keyword,.javascript .hljs-function{color:#8959a8}.hljs{display:block;background:white;color:#4d4d4c;padding:.5em}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .javascript,.xml .vbscript,.xml .css,.xml .hljs-cdata{opacity:.5}.right .hljs-comment{color:#969896}.right .css .hljs-class,.right .css .hljs-id,.right .css .hljs-pseudo,.right .hljs-attribute,.right .hljs-regexp,.right .hljs-tag,.right .hljs-variable,.right .html .hljs-doctype,.right .ruby .hljs-constant,.right .xml .hljs-doctype,.right .xml .hljs-pi,.right .xml .hljs-tag .hljs-title{color:#c66}.right .hljs-built_in,.right .hljs-constant,.right .hljs-literal,.right .hljs-number,.right .hljs-params,.right .hljs-pragma,.right .hljs-preprocessor{color:#de935f}.right .css .hljs-rule .hljs-attribute,.right .ruby .hljs-class .hljs-title{color:#f0c674}.right .hljs-header,.right .hljs-inheritance,.right .hljs-name,.right .hljs-string,.right .hljs-value,.right .ruby .hljs-symbol,.right .xml .hljs-cdata{color:#b5bd68}.right .css .hljs-hexcolor,.right .hljs-title{color:#8abeb7}.right .coffeescript .hljs-title,.right .hljs-function,.right .javascript .hljs-title,.right .perl .hljs-sub,.right .python .hljs-decorator,.right .python .hljs-title,.right .ruby .hljs-function .hljs-title,.right .ruby .hljs-title .hljs-keyword{color:#81a2be}.right .hljs-keyword,.right .javascript .hljs-function{color:#b294bb}.right .hljs{display:block;overflow-x:auto;background:#1d1f21;color:#c5c8c6;padding:.5em;-webkit-text-size-adjust:none}.right .coffeescript .javascript,.right .javascript .xml,.right .tex .hljs-formula,.right .xml .css,.right .xml .hljs-cdata,.right .xml .javascript,.right .xml .vbscript{opacity:.5}body{color:black;background:white;font:400 14px / 1.42 'Roboto',Helvetica,sans-serif}header{border-bottom:1px solid #f2f2f2;margin-bottom:12px}h1,h2,h3,h4,h5{color:black;margin:12px 0}h1 .permalink,h2 .permalink,h3 .permalink,h4 .permalink,h5 .permalink{margin-left:0;opacity:0;transition:opacity .25s ease}h1:hover .permalink,h2:hover .permalink,h3:hover .permalink,h4:hover .permalink,h5:hover .permalink{opacity:1}.triple h1 .permalink,.triple h2 .permalink,.triple h3 .permalink,.triple h4 .permalink,.triple h5 .permalink{opacity:.15}.triple h1:hover .permalink,.triple h2:hover .permalink,.triple h3:hover .permalink,.triple h4:hover .permalink,.triple h5:hover .permalink{opacity:.15}h1{font:200 36px 'Raleway',Helvetica,sans-serif;font-size:36px}h2{font:200 36px 'Raleway',Helvetica,sans-serif;font-size:30px}h3{font-size:100%;text-transform:uppercase}h5{font-size:100%;font-weight:normal}p{margin:0 0 10px}p.choices{line-height:1.6}a{color:#428bca;text-decoration:none}li p{margin:0}hr.split{border:0;height:1px;width:100%;padding-left:6px;margin:12px auto;background-image:linear-gradient(to right, rgba(0,0,0,0) 20%, rgba(0,0,0,0.2) 51.4%, rgba(255,255,255,0.2) 51.4%, rgba(255,255,255,0) 80%)}dl dt{float:left;width:130px;clear:left;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}dl dd{margin-left:150px}blockquote{color:rgba(0,0,0,0.5);font-size:15.5px;padding:10px 20px;margin:12px 0;border-left:5px solid #e8e8e8}blockquote p:last-child{margin-bottom:0}pre{background-color:#f5f5f5;padding:12px;border:1px solid #cfcfcf;border-radius:6px;overflow:auto}pre code{color:black;background-color:transparent;padding:0;border:none}code{color:#444;background-color:#f5f5f5;font:'Inconsolata',monospace;padding:1px 4px;border:1px solid #cfcfcf;border-radius:3px}ul,ol{padding-left:2em}table{border-collapse:collapse;border-spacing:0;margin-bottom:12px}table tr:nth-child(2n){background-color:#fafafa}table th,table td{padding:6px 12px;border:1px solid #e6e6e6}.text-muted{opacity:.5}.note,.warning{padding:.3em 1em;margin:1em 0;border-radius:2px;font-size:90%}.note h1,.warning h1,.note h2,.warning h2,.note h3,.warning h3,.note h4,.warning h4,.note h5,.warning h5,.note h6,.warning h6{font-family:200 36px 'Raleway',Helvetica,sans-serif;font-size:135%;font-weight:500}.note p,.warning p{margin:.5em 0}.note{color:black;background-color:#f0f6fb;border-left:4px solid #428bca}.note h1,.note h2,.note h3,.note h4,.note h5,.note h6{color:#428bca}.warning{color:black;background-color:#fbf1f0;border-left:4px solid #c9302c}.warning h1,.warning h2,.warning h3,.warning h4,.warning h5,.warning h6{color:#c9302c}header{margin-top:24px}nav{position:fixed;top:24px;bottom:0;overflow-y:auto}nav .resource-group{padding:0}nav .resource-group .heading{position:relative}nav .resource-group .heading .chevron{position:absolute;top:12px;right:12px;opacity:.5}nav .resource-group .heading a{display:block;color:black;opacity:.7;border-left:2px solid transparent;margin:0}nav .resource-group .heading a:hover{text-decoration:none;background-color:bad-color;border-left:2px solid black}nav ul{list-style-type:none;padding-left:0}nav ul a{display:block;font-size:13px;color:rgba(0,0,0,0.7);padding:8px 12px;border-top:1px solid #d9d9d9;border-left:2px solid transparent;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}nav ul a:hover{text-decoration:none;background-color:bad-color;border-left:2px solid black}nav ul>li{margin:0}nav ul>li:first-child{margin-top:-12px}nav ul>li:last-child{margin-bottom:-12px}nav ul ul a{padding-left:24px}nav ul ul li{margin:0}nav ul ul li:first-child{margin-top:0}nav ul ul li:last-child{margin-bottom:0}nav>div>div>ul>li:first-child>a{border-top:none}.preload *{transition:none !important}.pull-left{float:left}.pull-right{float:right}.badge{display:inline-block;float:right;min-width:10px;min-height:14px;padding:3px 7px;font-size:12px;color:#000;background-color:#f2f2f2;border-radius:10px;margin:-2px 0}.badge.get{color:#70bbe1;background-color:#d9edf7}.badge.head{color:#70bbe1;background-color:#d9edf7}.badge.options{color:#70bbe1;background-color:#d9edf7}.badge.put{color:#f0db70;background-color:#fcf8e3}.badge.patch{color:#f0db70;background-color:#fcf8e3}.badge.post{color:#93cd7c;background-color:#dff0d8}.badge.delete{color:#ce8383;background-color:#f2dede}.collapse-button{float:right}.collapse-button .close{display:none;color:#428bca;cursor:pointer}.collapse-button .open{color:#428bca;cursor:pointer}.collapse-button.show .close{display:inline}.collapse-button.show .open{display:none}.collapse-content{max-height:0;overflow:hidden;transition:max-height .3s ease-in-out}nav{width:220px}.container{max-width:940px;margin-left:auto;margin-right:auto}.container .row .content{margin-left:244px;width:696px}.container .row:after{content:'';display:block;clear:both}.container-fluid nav{width:22%}.container-fluid .row .content{margin-left:24%}.container-fluid.triple nav{width:16.5%;padding-right:1px}.container-fluid.triple .row .content{position:relative;margin-left:16.5%;padding-left:24px}.middle:before,.middle:after{content:'';display:table}.middle:after{clear:both}.middle{box-sizing:border-box;width:51.5%;padding-right:12px}.right{box-sizing:border-box;float:right;width:48.5%;padding-left:12px}.right a{color:#428bca}.right h1,.right h2,.right h3,.right h4,.right h5,.right p,.right div{color:white}.right pre{background-color:#1d1f21;border:1px solid #1d1f21}.right pre code{color:#c5c8c6}.right .description{margin-top:12px}.triple .resource-heading{font-size:125%}.definition{margin-top:12px;margin-bottom:12px}.definition .method{font-weight:bold}.definition .method.get{color:#2e8ab8}.definition .method.head{color:#2e8ab8}.definition .method.options{color:#2e8ab8}.definition .method.post{color:#56b82e}.definition .method.put{color:#b8a22e}.definition .method.patch{color:#b8a22e}.definition .method.delete{color:#b82e2e}.definition .uri{word-break:break-all;word-wrap:break-word}.definition .hostname{opacity:.5}.example-names{background-color:#eee;padding:12px;border-radius:6px}.example-names .tab-button{cursor:pointer;color:black;border:1px solid #ddd;padding:6px;margin-left:12px}.example-names .tab-button.active{background-color:#d5d5d5}.right .example-names{background-color:#444}.right .example-names .tab-button{color:white;border:1px solid #666;border-radius:6px}.right .example-names .tab-button.active{background-color:#5e5e5e}#nav-background{position:fixed;left:0;top:0;bottom:0;width:16.5%;padding-right:14.4px;background-color:#fbfbfb;border-right:1px solid #f0f0f0;z-index:-1}#right-panel-background{position:absolute;right:-12px;top:-12px;bottom:-12px;width:48.6%;background-color:#333;z-index:-1}@media (max-width:1200px){nav{width:198px}.container{max-width:840px}.container .row .content{margin-left:224px;width:606px}}@media (max-width:992px){nav{width:169.4px}.container{max-width:720px}.container .row .content{margin-left:194px;width:526px}}@media (max-width:768px){nav{display:none}.container{width:95%;max-width:none}.container .row .content,.container-fluid .row .content,.container-fluid.triple .row .content{margin-left:auto;margin-right:auto;width:95%}#nav-background{display:none}#right-panel-background{width:48.6%}}.back-to-top{position:fixed;z-index:1;bottom:0;right:24px;padding:4px 8px;color:rgba(0,0,0,0.5);background-color:#f2f2f2;text-decoration:none !important;border-top:1px solid #d9d9d9;border-left:1px solid #d9d9d9;border-right:1px solid #d9d9d9;border-top-left-radius:3px;border-top-right-radius:3px}.resource-group{padding:12px;margin-bottom:12px;background-color:white;border:1px solid #d9d9d9;border-radius:6px}.resource-group h2.group-heading,.resource-group .heading a{padding:12px;margin:-12px -12px 12px -12px;background-color:#f2f2f2;border-bottom:1px solid #d9d9d9;border-top-left-radius:6px;border-top-right-radius:6px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.triple .content .resource-group{padding:0;border:none}.triple .content .resource-group h2.group-heading,.triple .content .resource-group .heading a{margin:0 0 12px 0;border:1px solid #d9d9d9}nav .resource-group .heading a{padding:12px;margin-bottom:0}nav .resource-group .collapse-content{padding:0}.action{margin-bottom:12px;padding:12px 12px 0 12px;overflow:hidden;border:1px solid transparent;border-radius:6px}.action h4.action-heading{padding:12px;margin:-12px -12px 12px -12px;border-bottom:1px solid transparent;border-top-left-radius:6px;border-top-right-radius:6px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.action h4.action-heading .name{float:right;font-weight:normal}.action h4.action-heading .method{padding:6px 12px;margin-right:12px;border-radius:3px}.action h4.action-heading .method.get{color:#fff;background-color:#337ab7}.action h4.action-heading .method.head{color:#fff;background-color:#337ab7}.action h4.action-heading .method.options{color:#fff;background-color:#337ab7}.action h4.action-heading .method.put{color:#fff;background-color:#ed9c28}.action h4.action-heading .method.patch{color:#fff;background-color:#ed9c28}.action h4.action-heading .method.post{color:#fff;background-color:#5cb85c}.action h4.action-heading .method.delete{color:#fff;background-color:#d9534f}.action h4.action-heading code{color:#444;background-color:#f5f5f5;border-color:#cfcfcf;font-weight:normal}.action dl.inner{padding-bottom:2px}.action .title{border-bottom:1px solid white;margin:0 -12px -1px -12px;padding:12px}.action.get{border-color:#bce8f1}.action.get h4.action-heading{color:#337ab7;background:#d9edf7;border-bottom-color:#bce8f1}.action.head{border-color:#bce8f1}.action.head h4.action-heading{color:#337ab7;background:#d9edf7;border-bottom-color:#bce8f1}.action.options{border-color:#bce8f1}.action.options h4.action-heading{color:#337ab7;background:#d9edf7;border-bottom-color:#bce8f1}.action.post{border-color:#d6e9c6}.action.post h4.action-heading{color:#5cb85c;background:#dff0d8;border-bottom-color:#d6e9c6}.action.put{border-color:#faebcc}.action.put h4.action-heading{color:#ed9c28;background:#fcf8e3;border-bottom-color:#faebcc}.action.patch{border-color:#faebcc}.action.patch h4.action-heading{color:#ed9c28;background:#fcf8e3;border-bottom-color:#faebcc}.action.delete{border-color:#ebccd1}.action.delete h4.action-heading{color:#d9534f;background:#f2dede;border-bottom-color:#ebccd1}</style></head><body class="preload"><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><nav><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#top">Overview</a></div><div class="collapse-content"><ul><li><a href="#header-how-it-works">How it works</a></li><li><a href="#header-quick-start-guide">Quick Start Guide</a></li><li><a href="#header-register-account">Register Account</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#sample-business-cases">Sample Business Cases</a></div><div class="collapse-content"><ul><li><a href="#header-middle-office">Middle Office</a></li><li><a href="#header-channel-manager">Channel Manager</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#features">Features</a></div><div class="collapse-content"><ul><li><a href="#header-collect-payment-data">Collect payment data</a></li><li><a href="#header-from-web-service-calls">From web service calls</a></li><li><a href="#header-extracting-from-pull-api">Extracting from pull API</a></li><li><a href="#header-how-to-start">How to start</a></li><li><a href="#header-create-new-note-[post]">Create New Note [POST]</a></li><li><a href="#header-extracting-from-push-api">Extracting from push API</a></li><li><a href="#header-how-to-start-1">How to start</a></li><li><a href="#header-on-a-website">On a Website</a></li><li><a href="#header-how-to-start-2">How to start</a></li></ul></div></div><p style="text-align: center; word-wrap: break-word;"><a href="https://api.example.com">https://api.example.com</a></p></nav><div class="content"><header><h1 id="top">PCI Proxy</h1></header><p>PCI Proxy is a service that can <strong>securely collect, store and forward credit cards</strong> (payment data) to any payment gateway (e.g. Stripe) or other PCI-certified third party (e.g. Expedia). It can even <strong>extract payment data out of web service calls</strong> (e.g. <a href="http://Booking.com">Booking.com</a>) while allowing the message body to remain unaffected. By using tokenization, our APIs ensure <strong>sensitive payment data never touches your system environment</strong>.</p>
+<h2 id="header-how-it-works">How it works <a class="permalink" href="#header-how-it-works" aria-hidden="true">¶</a></h2>
+<p><img src="http://thomaas.com/img/thomaas.png" alt="enter image description here"></p>
+<h2 id="header-quick-start-guide">Quick Start Guide <a class="permalink" href="#header-quick-start-guide" aria-hidden="true">¶</a></h2>
+<p>Here is a quick step-by-step instruction on how to get started and quickly reduce your PCI scope.</p>
+<ol>
+<li>
+<p>Collect or extract payment data with our APIs</p>
+</li>
+<li>
+<p>Use stored payment data</p>
+</li>
+</ol>
+<div class="note">
+<p>Important: Your API key (merchant ID)</p>
+<p>On the following pages you will find several sample scripts that run on our test environment. You will notice the merchant ID attribute. Merchant IDs are unique API keys that will identify your environments at PCI Proxy once you are registered.</p>
+<p>You can have multiple merchant IDs. For instance, if you have different environments on which you receive payment data (e.g. website, web service, mobile app), we recommend separating your environments by using a single merchant ID for each.</p>
+<blockquote>
+<p>For your convenience, we have pre-filled our examples with a test API key so you can start off testing right away.</p>
+</blockquote>
+<p>In order to <a href="golive">go live</a>, you will need to replace the test API key with a production API key. You can get your production keys by <a href="register">registering an account at PCI Proxy</a>.</p>
+</div>
+<h2 id="header-register-account">Register Account <a class="permalink" href="#header-register-account" aria-hidden="true">¶</a></h2>
+<p>Before you register an account at PCI Proxy, you can use PCI Proxy only in test mode. With the exception that only test credit cards can be used, all PCI Proxy features are fully available in test mode.</p>
+<p>Registering an account at PCI Proxy is simple. Send us an email to <a href="mailto:setup@pci-proxy.com">setup@pci-proxy.com</a> with your company name and email.</p>
+<p>We will return a form, requesting some basic information about your company, contact persons, etc.</p>
+<section id="sample-business-cases" class="resource-group"><h2 class="group-heading">Sample Business Cases <a href="#sample-business-cases" class="permalink">&para;</a></h2><p>The following list of business cases is not complete and should only give an overview of business types that already use PCI Proxy.</p>
+<h2 id="header-middle-office">Middle Office <a class="permalink" href="#header-middle-office" aria-hidden="true">¶</a></h2>
+<p><em>You are a middle office that receives booking information on behalf of your clients.</em></p>
+<p><em>Travel agencies use your software to drop new bookings. At some point, they will enter the customers’ payment data in your software. In order to minimize your PCI scope, this payment data should be added without touching your server.</em></p>
+<blockquote>
+<p>PCI Proxy supports a varienty of <a href="#collect">different approaches for you to collect the payment data</a>. Your server will never get in touch with sensitive card data which reduces your PCI scope immediately.</p>
+</blockquote>
+<blockquote>
+<p>The most common approach is to submit data directly from your software using our <a href="#paymentpages">payment pages</a>. Another option is <a href="#paybyemail">pay-by-email</a> where temporary payment links are issued that can be emailed to customers to let them enter their payment details by themselves.</p>
+</blockquote>
+<p><em>On behalf of your clients you want to process the booking or transact with different endpoints (e.g. Expedia, Stripe, TUI, Lufthansa, etc.).</em></p>
+<blockquote>
+<p>PCI Proxy allows you to <a href="#forward">forward vaulted payment data</a> to PCI compliant third parties.</p>
+</blockquote>
+<h2 id="header-channel-manager">Channel Manager <a class="permalink" href="#header-channel-manager" aria-hidden="true">¶</a></h2>
+<p><em>You are a channel manager that requests or receives booking information from distribution channels, e.g. <a href="http://www.booking.com/">Booking.com</a>.</em></p>
+<p><em>Hotels and accommodation providers transmit availabilities and prices to various distribution channels. It also automatically retrieves bookings including payment data from the online booking platforms.</em></p>
+<blockquote>
+<p>PCI Proxy allows you to <a href="#extract">extract payment data from web service calls</a> and securely store it in PCI Proxys’ vault. Your server will never get in touch with sensitive card data which reduces your PCI scope immediately.</p>
+</blockquote>
+<p><em>Generally, you will store payment data only to allow your hotels to charge cards in case of a no-show.</em></p>
+<blockquote>
+<p>PCI Proxy provides several ways on how to <a href="#use">use stored payment data</a>. Your clients can either <a href="#retrieve">retrieve single payment data sets</a>, <a href="#charge">charge payment data</a> against a payment processor or <a href="#forward">forward payment data</a> to a PCI-compliant third party, eg. Expedia.</p>
+</blockquote>
+</section><section id="features" class="resource-group"><h2 class="group-heading">Features <a href="#features" class="permalink">&para;</a></h2><p>PCI Proxy has 3 different features: Collect, Validate, Use.</p>
+<table>
+<thead>
+<tr>
+<th>Collect</th>
+<th>Validate</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>from web service</td>
+<td>credit card check</td>
+<td>Forward</td>
+</tr>
+<tr>
+<td>from website</td>
+<td></td>
+<td>Charge</td>
+</tr>
+<tr>
+<td>from mobile app</td>
+<td></td>
+<td>Retrieve</td>
+</tr>
+</tbody>
+</table>
+<p>First you need to collect payment data to store it in our secure vault. You will find different approaches on how you can collect or extract payment data from different environments (e.g. web service APIs, website, mobile app). If you have specific environments that are not listed, please get in touch. We are quick and flexible to enhance our Proxy features.</p>
+<p>Once you have collected the payment data, you might want to validate the credit cards and check if the card is valid and can be charged.</p>
+<p>As soon as payment data is collected, you can make use of it. You can either forward payment data to PCI-compliant thirdparties (e.g. Expedia), charge payment data through a payment gateway (e.g. Datatrans), or retrieve single payment data sets (e.g. to book a No-Show).</p>
+<h2 id="header-collect-payment-data">Collect payment data <a class="permalink" href="#header-collect-payment-data" aria-hidden="true">¶</a></h2>
+<p>Whether you receive payment data via API, accept credit cards on a website or collect them in a mobile app, you can use PCI Proxy APIs. Our APIs automatically tokenize the payment information before they ever touch your systems to instantly reduce your PCI scope.</p>
+<p>PCI Proxy APIs are organized in environments, meaning the different ways on how you could possibly receive or collect payment data.</p>
+<p><strong>Considering the following cases:</strong></p>
+<ul>
+<li>
+<p>You receive or request messages including payment data via APIs from your partners or clients. For example, you receive transaction related data from <a href="http://Booking.com">Booking.com</a>. <a href="extract">Learn about Extracting.</a></p>
+</li>
+<li>
+<p>You collect payment data on a website. For instance, you have an Internet booking engine running on your website. <a href="paymentpage">Learn about Payment Pages.</a></p>
+</li>
+<li>
+<p>You have a native mobile app (iOS or Android) and collect payment from customers. For instance, you give your clients the opportunity to book your product or service through a mobile app. <a href="paymentlib">Learn about Payment Libraries.</a></p>
+</li>
+<li>
+<p>You need to enter payment data into your system on behalf of your clients. For instance, you are a travel agency that works with a middle office system and want to avoid that employees get in contact with payment data. <a href="paybyemail">Learn about Pay-by-Email.</a></p>
+</li>
+</ul>
+<h3 id="header-from-web-service-calls">From web service calls <a class="permalink" href="#header-from-web-service-calls" aria-hidden="true">¶</a></h3>
+<p>If you run a web service that receives or requests messages via API from your partners or clients (channel) that include sensitive payment data, PCI Proxy can extract it and automatically store it securely in PCI Proxys’ vault.</p>
+<p>Together with the stored payment data, a reference number (token) is issued that substitutes the payment data field in your request. The message structure of the channel API always remains the same. The token can be used later on to charge, forward or retrieve payment data. All of this happens before sensitive payment data ever touch your server to minimize your PCI scope.</p>
+<blockquote>
+<p>You are allowed to store the token in your system, as it is not PCI DSS relevant.</p>
+</blockquote>
+<p><strong>PCI Proxy supports push and pull APIs</strong></p>
+<p>In general, you either perform a pull request to receive data or a channel pushes data to your server. PCI Proxy can extract payment data from both operations before sensitive payment data touch your server.</p>
+<h4 id="header-extracting-from-pull-api">Extracting from pull API <a class="permalink" href="#header-extracting-from-pull-api" aria-hidden="true">¶</a></h4>
+<p>When you perform a pull request against another API, payment data can easily extracted from already sup-ported APIs or by adding a new channel API.</p>
+<p><strong>Consider a business that needs this ability:</strong></p>
+<p><em>You are a travel technology company that pulls new reservations from connected reservation portals such as <a href="http://Booking.com">Booking.com</a>. When performing a pull request against <a href="http://Booking.com">Booking.com</a>’s API, you receive booking information including payment data as a response. <a href="http://Booking.com">Booking.com</a> asks all of their IT providers, which receive payment data to be PCI DSS compliant.</em></p>
+<p><em>With the use of PCI Proxy, <a href="http://Booking.com">Booking.com</a> removes this requirement from you, as we as a company are PCI DSS compliant and you can bank on our full Level 1 PCI DSS compliance.</em></p>
+<h5 id="header-how-to-start">How to start <a class="permalink" href="#header-how-to-start" aria-hidden="true">¶</a></h5>
+<p>You can start and perform the following cURL example. It will give you and understanding of how PCI Proxys’ pull channel API works. Once you have understand it, you can use one of our supported pull channel APIs or add a new pull channel API.</p>
+<h5 id="header-create-new-note-[post]">Create New Note [POST] <a class="permalink" href="#header-create-new-note-[post]" aria-hidden="true">¶</a></h5>
+<p>Create a new note using a title and an optional content body.</p>
+<ul>
+<li>
+<p>Request with body (application/json)</p>
+<ul>
+<li>
+<p>Body</p>
+<pre><code>{
+      "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"My new note"</span></span>,
+      "<span class="hljs-attribute">body</span>": <span class="hljs-value"><span class="hljs-string">"This is the body"</span>
+  </span>}</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>Response 201</p>
+</li>
+<li>
+<p>Response 400 (application/json)</p>
+<ul>
+<li>
+<p>Body</p>
+<pre><code>{
+      "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Invalid title"</span>
+  </span>}</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>Request without body (application/json)</p>
+<ul>
+<li>
+<p>Body</p>
+<pre><code>{
+      "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"My new note"</span>
+  </span>}</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>Response 201</p>
+</li>
+<li>
+<p>Response 400 (application/json)</p>
+<ul>
+<li>
+<p>Body</p>
+<pre><code>{
+      "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Invalid title"</span>
+  </span>}</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Supported pull channel APIs</strong>
+We support a variety of channel APIs out of the box. Every day, more and more channels get added. Please find below an uncomplete list of channels we already support. In case your required API is not on the list, add-ing a new channel API is easy.</p>
+<pre><code>Booking<span class="hljs-class">.com</span> – cURL example</code></pre>
+<p><strong>Adding a new pull channel API</strong>
+If your required channel API is not supported yet, you can easily add new pull channel APIs by yourself. Just send us the following information to <a href="mailto:setup@pci-proxy.com">setup@pci-proxy.com</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Information</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Target URL</td>
+<td>The URL where we should forward the populated request to (your server).</td>
+</tr>
+<tr>
+<td>Sample Request &amp; Response</td>
+<td>Please include API name, required headers, auth fields, and request method.</td>
+</tr>
+<tr>
+<td>IP Address</td>
+<td>IP address of your partners’ server that will send the push messages.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="header-extracting-from-push-api">Extracting from push API <a class="permalink" href="#header-extracting-from-push-api" aria-hidden="true">¶</a></h3>
+<p>Some channels push messages directly to a predefined API endpoint at your server. Because these messages contain sensitive payment data, you will avoid that sensitive data hit your server directly. PCI Proxy allows you to <a href="request-push-endpoint">request an API endpoint</a> that you can pass on to your channel partner. From now on your channel partner can push messages to PCI Proxy where sensitive payment data will be extracted before the messages are forwarded to your original API endpoint at your server.</p>
+<p><em>No worries, our servers and connections are blazing fast and handle a little routing in no time so that response times are kept at a minimum. Please get in touch with us, if you want to know more.</em></p>
+<h4 id="header-how-to-start-1">How to start <a class="permalink" href="#header-how-to-start-1" aria-hidden="true">¶</a></h4>
+<p>You can start of with testing by <a href="request-push-endpoint">requesting an API endpoint</a> for you. If your partner has a test system, pass on the new test API endpoint to him and exchange it with your old API endpoint. Once your tests are successful, you can <a href="activate-push-endpoint">activate your API endpoint</a> and receive the productive API endpoint.</p>
+<p><strong>Request test API endpoint:</strong>
+Please send the following information to <a href="mailto:setup@pci-proxy.com">setup@pci-proxy.com</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Information</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Target URL</td>
+<td>The URL where we should forward the populated request to (your server).</td>
+</tr>
+<tr>
+<td>Sample Request &amp; Response</td>
+<td>Please include API name, required headers, auth fields, and request method.</td>
+</tr>
+<tr>
+<td>IP Address</td>
+<td>IP address of your partners’ server that will send the push messages.</td>
+</tr>
+</tbody>
+</table>
+<p>In return you will receive a test API endpoint for this push channel.</p>
+<pre><code><span class="hljs-escape">``</span><span class="hljs-escape">`h</span>ttp
+<span class="hljs-label">Example API endpoint:</span> 
+<span class="hljs-label">https:</span>//pilot.datatrans.biz/upp/proxy/push/e1963c626c6eb4b32
+<span class="hljs-escape">``</span><span class="hljs-escape">`
+</span></code></pre>
+<p>This push URL is hosted in our PCI Proxy pilot environment to let you test the push channel and make sure you receive the correct data.</p>
+<p><strong>Activate API endpoint</strong>
+Once your tests are successful, you can activate it by sending the following data to <a href="mailto:setup@pci-proxy.com">setup@pci-proxy.com</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Information</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Merchant ID</td>
+<td>Once you <a href="register">register an account</a> you receive your merchant ID.</td>
+</tr>
+<tr>
+<td>API Endpoint</td>
+<td>Test API endpoint that should be activated</td>
+</tr>
+</tbody>
+</table>
+<p>In return you will receive a unique production push URL for the new push channel that you can pass on to your partner.</p>
+<h2 id="header-on-a-website">On a Website <a class="permalink" href="#header-on-a-website" aria-hidden="true">¶</a></h2>
+<p>If you run a website where you have customers enter their payment data into a HTML web form, PCI Proxy gives you several options on how to collect payment data and securely store it in PCI Proxys’ vault. Many of them assure your servers never get in touch with sensitive card data and reduce your PCI scope to the minimum.</p>
+<blockquote>
+<p>Add-on: All available options for collecting payment data offer the possibility to make instant charges to payment data. If you plan to use this feature, please make sure you have a valid acquiring contract with one of the following acquirer (financial institutions).</p>
+</blockquote>
+<h4 id="header-how-to-start-2">How to start <a class="permalink" href="#header-how-to-start-2" aria-hidden="true">¶</a></h4>
+<p>An easy way to start is by integrating our Redirect or Lightbox Payment Page. It takes care of building a conversion-optimised HTML form, validating input fields, and securing your customers’ payment data.</p>
+<pre><code>`<span class="javascript"></span>``<span class="javascript">http
+&lt;a href=<span class="hljs-string">"https://pilot.datatrans.biz/upp/jsp/upStart.jsp
+        ?merchantId=1100004624
+        &amp;refno=1234567890
+        &amp;amount=1000
+        &amp;currency=CHF
+        &amp;theme=DT2015
+&amp;uppAliasOnly=yes"</span>&gt;Collect payment data&lt;<span class="hljs-regexp">/a&gt;
+</span></span>``<span class="javascript"><span class="hljs-regexp"></span></span>`</code></pre>
+<p>If you need a more customizable approach, you can try our Inline Mode Payment Page. The Inline Mode allows you to integrate the payment form into your website with an iframe. With this approach you can adjust the style of the payment form by applying your custom CSS.</p>
+<pre><code class="language-http">&lt;iframe width="600" 
+    height="500"
+    frameborder="0"
+    border="0"
+    src="https://pilot.datatrans.biz/upp/jsp/upStart.jsp
+        ?theme=Inline
+        &amp;paymentmethod=VIS
+        &amp;merchantId=1100004547
+        &amp;refno=1337
+        &amp;amount=1000
+        &amp;uppAliasOnly=yes
+        &amp;currency=CHF
+        &amp;customTheme=mytheme"&gt;
+        ```
+
+#### Go Live
+You will need to replace the test service URL and test merchant ID with your production credentials. You can get your credentials by [registering a free account](register).
+
+## In a Mobile App
+
+If you offer a mobile iOS or Android app to your customers where they can enter payment data, you can use our In-App Payment Libraries (SDKs) to securely collect sensitive payment data and store it in our PCI Proxy vault.
+
+You will find download links to the SDKs and developer manuals on [Datatrans Showcase][1] page.
+
+ [1]: https://www.datatrans.ch/showcase/documentations/technical-documentation
+
+Validate Payment Data
+=====================
+
+How to validate
+
+Use Payment Data
+================
+
+##Forward Payment Data 
+
+Once you collect and extract sensitive payment data to shield your server and minimize your PCI scope, you will most likely want to use the stored payment data to process, forward or retrieve payment data for several business cases.
+
+PCI Proxy allows you to forward vaulted payment data to PCI compliant third parties. This can be any 3rd party that is PCI compliant them self (e.g. online travel agency, payment processor, hotel, airline, car rental, etc.).
+
+### Set up a new third party receiver
+
+Before you can forward payment data to PCI compliant third parties, we need the following information to approve and whitelist the new third party:
+
+| General Information                                                               |
+| --------------------------------------------------------------------------------- |
+| Merchant ID - Once you [register an account][3] you receive your merchant ID. |
+| Company name and website of third party                                           |
+| AOC document of third party as proof of PCI compliance                            |
+
+| Technical Details         | Description                                                                 |
+| ------------------------- | --------------------------------------------------------------------------- |
+| Target URL                | The URL where we should forward the populated request to (3rd party).       |
+| Sample Request &amp; Response | Please include API name, required headers, auth fields, and request method. |
+| IP Address                | IP address of your server                                                   |
+
+Please send this information to setup@datatrans.ch.
+
+### Pull request to forward data
+
+## Charge Payment Data
+
+&gt; `XML Beispiel`
+
+## Retrieve Payment Data
+
+There might be situations, where you have authorized personell that needs to be able to retrieve single payment data sets. For instance, to book a NoShow. The NoShow.jsp is a web interface that can convert single tokens back into full credit card numbers. This web interface, even though it is served by PCI Proxy, extends your PCI scope. You can call it as an embedded iframe or by redirect. Companies that currently use virtual terminals
+
+Click to see NoShow.jsp in action: [Retrieve single credit card][1]
+
+&gt; `https://pilot.datatrans.biz/upp/jsp/noShow.jsp?merchantId=1100005048
+&gt; &amp;aliasCC=70119122433810042
+&gt; &amp;salt=xUWnv6TR0RqUyPsVWvxgUn0wXKCuPJjWAumgTy67TVUsimiL0V
+&gt; &amp;sign=df9ed6edb62df004ce64db6c113038aa21bd769d866ca7cf305bf43610ce6232`
+
+###Important: PCI DSS Compliant User Management
+
+Using the NoShow.jsp requires you to handle your user management in a PCI DSS compliant way. PCI DSS requires certain user and password policies. Below you will find all necessary information for a PCI DSS compliant user management. A more detailed version on PCI DSS user management can be found in the official PCI DSS documents.
+
+**Unique User IDs**
+
+Every single user having access to the No-Show.jsp needs to have a unique user login to be clearly identified. Shared user logins are not allowed. 
+
+**Password Policy**
+
+In general, the following password rules have to be observed:
+
+ - Passwords must be changed at least every 90 days.
+ - The password must have a minimum length of 8 characters.
+ - The password must contain upper and lower case letters, numbers and at least one special character.
+ - When changing the password none of the last four passwords can be used.
+ - After 6 failed login attempts a user account is locked. It can only be unlocked by the administrator.
+ - After 15 minutes of inactivity, the password must be entered to reactivate the terminal / session.
+ - The maximum session time after which the user must log in again must not exceed 200 minutes.
+
+**No-Show.jsp Usage Logging**
+
+All activity related to the No-Show.jsp has to be logged to provide documentary evidence. Logs must record every time someone accesses regulated data (including cardholder data and log data) to enable a “who-did-what-and-when” audit trail. 
+
+####Go Live
+
+You will need to replace the test service URL and test merchant ID with your production credentials. You can get your credentials by [registering a free account][2].
+
+**Test Service URL:** 
+https://pilot.datatrans.biz/upp/jsp/noShow.jsp 
+
+**Production Service URL:** 
+https://production.datatrans.biz/upp/jsp/noShow.jsp
+
+
+ [1]: https://pilot.datatrans.biz/upp/jsp/noShow.jsp?merchantId=1100005048&amp;aliasCC=70119122433810042&amp;salt=xUWnv6TR0RqUyPsVWvxgUn0wXKCuPJjWAumgTy67TVUsimiL0V&amp;sign=df9ed6edb62df004ce64db6c113038aa21bd769d866ca7cf305bf43610ce6232
+ [2]: http://register</code></pre>
+</section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 01 Feb 2016</p><script>/* eslint-env browser */
+/* eslint quotes: [2, "single"] */
+'use strict';
+
+/*
+  Determine if a string ends with another string.
+*/
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+/*
+  Get a list of direct child elements by class name.
+*/
+function childrenByClass(element, name) {
+  var filtered = [];
+
+  for (var i = 0; i < element.children.length; i++) {
+    var child = element.children[i];
+    var classNames = child.className.split(' ');
+    if (classNames.indexOf(name) !== -1) {
+      filtered.push(child);
+    }
+  }
+
+  return filtered;
+}
+
+/*
+  Get an array [width, height] of the window.
+*/
+function getWindowDimensions() {
+  var w = window,
+      d = document,
+      e = d.documentElement,
+      g = d.body,
+      x = w.innerWidth || e.clientWidth || g.clientWidth,
+      y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+  return [x, y];
+}
+
+/*
+  Collapse or show a request/response example.
+*/
+function toggleCollapseButton(event) {
+    var button = event.target.parentNode;
+    var content = button.parentNode.nextSibling;
+    var inner = content.children[0];
+
+    if (button.className.indexOf('collapse-button') === -1) {
+      // Clicked without hitting the right element?
+      return;
+    }
+
+    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+        // Currently showing, so let's hide it
+        button.className = 'collapse-button';
+        content.style.maxHeight = '0px';
+    } else {
+        // Currently hidden, so let's show it
+        button.className = 'collapse-button show';
+        content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+    }
+}
+
+function toggleTabButton(event) {
+    var i, index;
+    var button = event.target;
+
+    // Get index of the current button.
+    var buttons = childrenByClass(button.parentNode, 'tab-button');
+    for (i = 0; i < buttons.length; i++) {
+        if (buttons[i] === button) {
+            index = i;
+            button.className = 'tab-button active';
+        } else {
+            buttons[i].className = 'tab-button';
+        }
+    }
+
+    // Hide other tabs and show this one.
+    var tabs = childrenByClass(button.parentNode.parentNode, 'tab');
+    for (i = 0; i < tabs.length; i++) {
+        if (i === index) {
+            tabs[i].style.display = 'block';
+        } else {
+            tabs[i].style.display = 'none';
+        }
+    }
+}
+
+/*
+  Collapse or show a navigation menu. It will not be hidden unless it
+  is currently selected or `force` has been passed.
+*/
+function toggleCollapseNav(event, force) {
+    var heading = event.target.parentNode;
+    var content = heading.nextSibling;
+    var inner = content.children[0];
+
+    if (heading.className.indexOf('heading') === -1) {
+      // Clicked without hitting the right element?
+      return;
+    }
+
+    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+      // Currently showing, so let's hide it, but only if this nav item
+      // is already selected. This prevents newly selected items from
+      // collapsing in an annoying fashion.
+      if (force || window.location.hash && endsWith(event.target.href, window.location.hash)) {
+        content.style.maxHeight = '0px';
+      }
+    } else {
+      // Currently hidden, so let's show it
+      content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+    }
+}
+
+/*
+  Refresh the page after a live update from the server. This only
+  works in live preview mode (using the `--server` parameter).
+*/
+function refresh(body) {
+    document.querySelector('body').className = 'preload';
+    document.body.innerHTML = body;
+
+    // Re-initialize the page
+    init();
+    autoCollapse();
+
+    document.querySelector('body').className = '';
+}
+
+/*
+  Determine which navigation items should be auto-collapsed to show as many
+  as possible on the screen, based on the current window height. This also
+  collapses them.
+*/
+function autoCollapse() {
+  var windowHeight = getWindowDimensions()[1];
+  var itemsHeight = 64; /* Account for some padding */
+  var itemsArray = Array.prototype.slice.call(
+    document.querySelectorAll('nav .resource-group .heading'));
+
+  // Get the total height of the navigation items
+  itemsArray.forEach(function (item) {
+    itemsHeight += item.parentNode.offsetHeight;
+  });
+
+  // Should we auto-collapse any nav items? Try to find the smallest item
+  // that can be collapsed to show all items on the screen. If not possible,
+  // then collapse the largest item and do it again. First, sort the items
+  // by height from smallest to largest.
+  var sortedItems = itemsArray.sort(function (a, b) {
+    return a.parentNode.offsetHeight - b.parentNode.offsetHeight;
+  });
+
+  while (sortedItems.length && itemsHeight > windowHeight) {
+    for (var i = 0; i < sortedItems.length; i++) {
+      // Will collapsing this item help?
+      var itemHeight = sortedItems[i].nextSibling.offsetHeight;
+      if ((itemsHeight - itemHeight <= windowHeight) || i === sortedItems.length - 1) {
+        // It will, so let's collapse it, remove its content height from
+        // our total and then remove it from our list of candidates
+        // that can be collapsed.
+        itemsHeight -= itemHeight;
+        toggleCollapseNav({target: sortedItems[i].children[0]}, true);
+        sortedItems.splice(i, 1);
+        break;
+      }
+    }
+  }
+}
+
+/*
+  Initialize the interactive functionality of the page.
+*/
+function init() {
+    var i, j;
+
+    // Make collapse buttons clickable
+    var buttons = document.querySelectorAll('.collapse-button');
+    for (i = 0; i < buttons.length; i++) {
+        buttons[i].onclick = toggleCollapseButton;
+
+        // Show by default? Then toggle now.
+        if (buttons[i].className.indexOf('show') !== -1) {
+            toggleCollapseButton({target: buttons[i].children[0]});
+        }
+    }
+
+    var responseCodes = document.querySelectorAll('.example-names');
+    for (i = 0; i < responseCodes.length; i++) {
+        var tabButtons = childrenByClass(responseCodes[i], 'tab-button');
+        for (j = 0; j < tabButtons.length; j++) {
+            tabButtons[j].onclick = toggleTabButton;
+
+            // Show by default?
+            if (j === 0) {
+                toggleTabButton({target: tabButtons[j]});
+            }
+        }
+    }
+
+    // Make nav items clickable to collapse/expand their content.
+    var navItems = document.querySelectorAll('nav .resource-group .heading');
+    for (i = 0; i < navItems.length; i++) {
+        navItems[i].onclick = toggleCollapseNav;
+
+        // Show all by default
+        toggleCollapseNav({target: navItems[i].children[0]});
+    }
+}
+
+// Initial call to set up buttons
+init();
+
+window.onload = function () {
+    autoCollapse();
+    // Remove the `preload` class to enable animations
+    document.querySelector('body').className = '';
+};
+</script></body></html>
